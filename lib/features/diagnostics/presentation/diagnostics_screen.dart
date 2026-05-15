@@ -122,9 +122,6 @@ class _DiagnosticsScreenState extends ConsumerState<DiagnosticsScreen>
   }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// METRICS TAB
-// ─────────────────────────────────────────────────────────────────────────────
 class _MetricsTab extends StatelessWidget {
   final DiagnosticsState state;
   const _MetricsTab({required this.state});
@@ -210,7 +207,6 @@ class _MetricsTab extends StatelessWidget {
           ),
           const SizedBox(height: 10),
 
-          // Mock performance
           GlassCard(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -242,7 +238,6 @@ class _MetricsTab extends StatelessWidget {
           ),
           const SizedBox(height: 10),
 
-          // Build info
           GlassCard(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -266,9 +261,6 @@ class _MetricsTab extends StatelessWidget {
   }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// LOG TERMINAL TAB
-// ─────────────────────────────────────────────────────────────────────────────
 class _LogTerminalTab extends StatelessWidget {
   final List<String> logs;
   final ScrollController scrollController;
@@ -372,9 +364,6 @@ class _LogTerminalTab extends StatelessWidget {
   }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// HELPER WIDGETS
-// ─────────────────────────────────────────────────────────────────────────────
 
 class _MetricCard extends StatelessWidget {
   final String label;

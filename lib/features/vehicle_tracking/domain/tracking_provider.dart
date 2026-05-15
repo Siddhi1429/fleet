@@ -57,7 +57,6 @@ class TrackingNotifier extends FamilyNotifier<TrackingState, String> {
     });
 
     _eventSub = _socket.events.listen((event) {
-      // Skip duplicates and stale events
       if (event.isDuplicate || event.isStale) {
         state = state.copyWith(
           isDuplicate: event.isDuplicate,
@@ -72,7 +71,6 @@ class TrackingNotifier extends FamilyNotifier<TrackingState, String> {
       );
 
       final history = [...state.routeHistory, newPoint];
-      // Keep last 100 points max
       final trimmed = history.length > 100
           ? history.sublist(history.length - 100)
           : history;

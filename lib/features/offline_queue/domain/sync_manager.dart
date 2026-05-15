@@ -40,7 +40,6 @@ class SyncManager {
             .addLog('[NET] Offline — queuing actions for later');
       }
     });
-    // Wrap in microtask to avoid modifying providers during initialization
     Future.microtask(() => _updateDiagnostics());
   }
 
@@ -66,7 +65,6 @@ class SyncManager {
     _updateDiagnostics();
   }
 
-  /// Retry all pending / failed actions
   Future<void> syncAll() async {
     if (_isSyncing) return;
     _isSyncing = true;
@@ -91,11 +89,9 @@ class SyncManager {
       action.retryAttempts += 1;
       await action.save();
 
-      // Simulate API latency
       await Future.delayed(
           Duration(milliseconds: 600 + action.retryAttempts * 200));
 
-      // 85% success rate simulation
       final success = DateTime.now().millisecondsSinceEpoch % 7 != 0;
       if (success) {
         action.status = 'Synced';

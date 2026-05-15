@@ -140,10 +140,8 @@ class _OfflineQueueScreenState extends ConsumerState<OfflineQueueScreen> {
             ],
           ),
 
-          // Stats bar
           _buildStatsBar(stats, isDark),
 
-          // Clear synced button
           if ((stats['synced'] ?? 0) > 0)
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),

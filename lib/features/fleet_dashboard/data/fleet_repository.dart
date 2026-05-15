@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/network/dio_provider.dart';
 import '../../../shared/models/vehicle.dart';
 
-/// Abstract contract — makes the repository swappable
 abstract class IFleetRepository {
   Future<({List<Vehicle> vehicles, int total, bool hasMore})> getVehicles({
     required int page,

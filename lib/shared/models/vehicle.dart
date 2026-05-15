@@ -1,10 +1,10 @@
-/// Vehicle entity — domain model used throughout the app
+
 class Vehicle {
   final String id;
   final String driverName;
   final String vehicleType;
   final double currentSpeed;
-  final String status; // "Online" | "Offline"
+  final String status;
   final DateTime lastUpdated;
   final double deliveryProgress;
   final double latitude;

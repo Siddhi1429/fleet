@@ -77,13 +77,9 @@ class _VehicleTrackingScreenState
       backgroundColor: isDark ? AppColors.darkBg : AppColors.lightBg,
       body: Stack(
         children: [
-          // ── MAP LAYER ──────────────────────────────────────────────
           _buildMap(state, isDark),
-
-          // ── TOP BAR ───────────────────────────────────────────────
           _buildTopBar(context, state, isDark, connectionColor),
 
-          // ── CONNECTION STATE BANNER ───────────────────────────────
           if (state.connectionState != SocketConnectionState.connected)
             Positioned(
               top: 100,
@@ -95,10 +91,8 @@ class _VehicleTrackingScreenState
               ),
             ),
 
-          // ── FLOATING CONTROLS ─────────────────────────────────────
           _buildFloatingControls(state),
 
-          // ── BOTTOM SHEET ──────────────────────────────────────────
           Positioned(
             bottom: 0,
             left: 0,
@@ -123,7 +117,6 @@ class _VehicleTrackingScreenState
         onTap: (_, __) => setState(() => _followVehicle = false),
       ),
       children: [
-        // OSM tile layer
         TileLayer(
           urlTemplate: isDark
               ? 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
@@ -132,7 +125,6 @@ class _VehicleTrackingScreenState
           userAgentPackageName: 'com.fleetops.pro',
         ),
 
-        // Route polyline
         if (state.routeHistory.length >= 2)
           PolylineLayer(
             polylines: [
@@ -146,7 +138,6 @@ class _VehicleTrackingScreenState
             ],
           ),
 
-        // Vehicle marker
         if (state.vehicle != null)
           MarkerLayer(
             markers: [
@@ -569,10 +560,6 @@ class _VehicleTrackingScreenState
     );
   }
 }
-
-// ──────────────────────────────────────────────────────────────────────────────
-// HELPER WIDGETS
-// ──────────────────────────────────────────────────────────────────────────────
 
 class _AnimatedVehicleMarker extends StatelessWidget {
   final AnimationController controller;

@@ -249,7 +249,6 @@ class _FleetDashboardScreenState
   }
 }
 
-/// Small inline theme toggle
 class _ThemeToggleButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -278,5 +277,4 @@ class _ThemeToggleButton extends ConsumerWidget {
   }
 }
 
-/// Global theme mode provider
 final themeModeProvider = StateProvider<ThemeMode>((ref) => ThemeMode.dark);

@@ -1,15 +1,13 @@
 import 'package:hive/hive.dart';
 
-/// OfflineAction entity for Hive storage
 class OfflineAction extends HiveObject {
   final String id;
-  final String name; // e.g. "Mark Inspected"
+  final String name;
   final String vehicleId;
   final DateTime createdAt;
   DateTime? lastSyncAttempt;
   int retryAttempts;
-  String status; // "Pending", "Retrying", "Failed", "Synced"
-
+  String status;
   OfflineAction({
     required this.id,
     required this.name,
@@ -21,7 +19,6 @@ class OfflineAction extends HiveObject {
   });
 }
 
-/// Manual Hive Adapter to avoid build_runner dependency for this assignment
 class OfflineActionAdapter extends TypeAdapter<OfflineAction> {
   @override
   final int typeId = 0;

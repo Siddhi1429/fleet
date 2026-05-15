@@ -4,7 +4,6 @@ import '../data/fleet_repository.dart';
 
 const int _kPageSize = 20;
 
-/// Filter options for status chip bar
 const List<String> kStatusFilters = ['All', 'Online', 'Offline'];
 
 class FleetState {

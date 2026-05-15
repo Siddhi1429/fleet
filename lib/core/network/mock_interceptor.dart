@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'dart:math';
 
-/// Vehicle types for mock data diversity
 const _vehicleTypes = [
   'Heavy Truck',
   'Delivery Van',
@@ -41,14 +40,13 @@ const _etaOptions = [
   '2h 10m', '45 min', '55 min', 'Arrived', '8 min',
 ];
 
-/// Mock interceptor that simulates a real fleet management API
 class MockInterceptor extends Interceptor {
-  final Random _random = Random(42); // Seeded for consistent names
+  final Random _random = Random(42);
   final Random _dynamicRandom = Random();
 
   List<Map<String, dynamic>> _generateAllVehicles() {
     return List.generate(60, (index) {
-      final isOnline = index % 6 != 0; // ~83% online
+      final isOnline = index % 6 != 0;
       return {
         'id': 'VEH-${1000 + index}',
         'driverName': _driverNames[index % _driverNames.length],
@@ -79,7 +77,6 @@ class MockInterceptor extends Interceptor {
 
     final path = options.path;
 
-    // GET /vehicles — paginated list
     if (path == '/vehicles' && options.method == 'GET') {
       final page =
           int.tryParse(options.queryParameters['page']?.toString() ?? '1') ??
@@ -123,7 +120,6 @@ class MockInterceptor extends Interceptor {
       ));
     }
 
-    // GET /vehicles/:id — single vehicle
     if (path.startsWith('/vehicles/') && options.method == 'GET') {
       final id = path.split('/').last;
       final all = _generateAllVehicles();
@@ -138,7 +134,6 @@ class MockInterceptor extends Interceptor {
       ));
     }
 
-    // Default 404
     return handler.resolve(Response(
       requestOptions: options,
       statusCode: 404,

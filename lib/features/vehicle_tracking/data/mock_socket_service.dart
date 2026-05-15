@@ -23,12 +23,6 @@ class SocketEvent {
   });
 }
 
-/// Simulates a WebSocket connection with:
-/// - 3-second updates
-/// - Disconnect / reconnect simulation
-/// - Heartbeat handling
-/// - Duplicate event prevention
-/// - Stale event detection (>10s old = stale)
 class MockSocketService {
   final String vehicleId;
 
@@ -51,7 +45,6 @@ class MockSocketService {
   int _sequenceId = 0;
   int _lastSequenceId = -1;
 
-  // Simulate periodic disconnects
   int _updateCount = 0;
 
   MockSocketService({
@@ -90,13 +83,11 @@ class MockSocketService {
 
       _updateCount++;
 
-      // Simulate occasional disconnect (every ~15 updates)
       if (_updateCount % 15 == 0 && _updateCount > 0) {
         _simulateDisconnect();
         return;
       }
 
-      // Simulate duplicate packet (every 7th update)
       if (_updateCount % 7 == 0) {
         _emitDuplicate();
         return;
@@ -107,7 +98,6 @@ class MockSocketService {
   }
 
   void _emitUpdate() {
-    // Move vehicle
     _lat += (_random.nextDouble() - 0.5) * 0.0012;
     _lng += (_random.nextDouble() - 0.5) * 0.0012;
     _fuel = max(0.05, _fuel - 0.003);
@@ -128,7 +118,6 @@ class MockSocketService {
   }
 
   void _emitDuplicate() {
-    // Re-send last packet with same sequence
     final vehicle = _buildVehicle();
     _eventController.add(SocketEvent(
       vehicle: vehicle,
@@ -141,7 +130,6 @@ class MockSocketService {
     _heartbeatTimer =
         Timer.periodic(const Duration(seconds: 10), (_) {
       if (!_isConnected) return;
-      // Heartbeat — just log internally, no UI change needed
     });
   }
 
@@ -150,7 +138,6 @@ class MockSocketService {
     _updateTimer?.cancel();
     _stateController.add(SocketConnectionState.disconnected);
 
-    // Reconnect after 4-7 seconds
     final delay = 4 + _random.nextInt(3);
     _reconnectTimer = Timer(Duration(seconds: delay), () {
       if (_stateController.isClosed) return;

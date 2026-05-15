@@ -15,7 +15,6 @@ final dioProvider = Provider<Dio>((ref) {
     },
   ));
 
-  // Diagnostics interceptor — tracks active API calls and logs
   dio.interceptors.add(InterceptorsWrapper(
     onRequest: (options, handler) {
       ref.read(diagnosticsProvider.notifier).incrementApiCall();
@@ -40,7 +39,6 @@ final dioProvider = Provider<Dio>((ref) {
     },
   ));
 
-  // Mock interceptor — intercepts all requests and returns mock data
   dio.interceptors.add(MockInterceptor());
 
   return dio;

@@ -10,7 +10,6 @@ import 'features/offline_queue/domain/sync_manager.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Lock portrait + landscape (tablet-aware)
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -18,13 +17,11 @@ void main() async {
     DeviceOrientation.landscapeRight,
   ]);
 
-  // Set transparent system bars
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
     systemNavigationBarColor: Colors.transparent,
   ));
 
-  // Initialize local storage
   await HiveService.init();
 
   runApp(
@@ -42,7 +39,6 @@ class FleetOpsApp extends ConsumerWidget {
     final router = ref.watch(routerProvider);
     final themeMode = ref.watch(themeModeProvider);
 
-    // Eagerly initialize sync manager so it listens to connectivity
     ref.watch(syncManagerProvider);
 
     return MaterialApp.router(

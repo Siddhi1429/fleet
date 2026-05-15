@@ -13,12 +13,11 @@ final offlineQueueProvider = StreamProvider<List<OfflineAction>>((ref) {
   }
 
   return Stream.multi((controller) async {
-    // Emit initial state
+
     final initial = box.values.toList()
       ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
     controller.add(initial);
 
-    // Emit on every Hive change event
     final sub = box.watch().listen((_) {
       final updated = box.values.toList()
         ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
